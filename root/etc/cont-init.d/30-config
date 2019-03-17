@@ -1,0 +1,10 @@
+#!/usr/bin/with-contenv bash
+
+# copy config
+[[ ! -e /config/config.yaml ]] && \
+	cp /defaults/config.yaml /config/config.yaml
+
+# permissions
+chown -R abc:abc \
+	/app \
+	/config
