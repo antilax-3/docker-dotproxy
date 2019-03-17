@@ -9,7 +9,6 @@
 ```
 docker create --name=dotproxy \
 -v <path to config>:/config \
--p 8125:8125 \
 -p 7012:7012 \
 -p 7012:7012/udp \
 antilax3/dotproxy
@@ -18,7 +17,6 @@ antilax3/dotproxy
 The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. For example with a volume -v external:internal - what this shows is the volume mapping from internal to external of the container. So -v /mnt/app/config:/config would map /config from inside the container to be accessible from /mnt/app/config on the host's filesystem.
 
 - `-v /config` - local path for dotproxy config file
-- `-p 8125` - HTTP port for metrics webserver
 - `-p 7012` - TCP port for dotproxy
 - `-p 7012/udp` - UDP port for dotproxy
 - `-e LOG_LEVEL` - for setting log verbosity level, eg debug
