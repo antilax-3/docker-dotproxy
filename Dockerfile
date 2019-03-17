@@ -30,5 +30,5 @@ WORKDIR /app
 COPY root/ /
 
 # ports and volumes
-EXPOSE 8125 7012 7012/udp
+EXPOSE 7012 7012/udp
 VOLUME /config
