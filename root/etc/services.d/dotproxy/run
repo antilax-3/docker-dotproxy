@@ -1,4 +1,5 @@
 #!/usr/bin/with-contenv bash
 
+setcap cap_net_bind_service=+ep /app/dotproxy && \
 exec \
 	s6-setuidgid abc /app/dotproxy -config /config/config.yaml -verbosity ${LOG_LEVEL:-info}

@@ -8,9 +8,14 @@ RUN \
 RUN \
  echo "**** build go application ****" && \
  git clone https://github.com/LINKIWI/dotproxy.git && \
- cd dotproxy && make && sed -i 's/localhost\:/0\.0\.0\.0\:/g' /go/dotproxy/config.example.yaml
+ cd dotproxy && make && sed -i 's/127\.0\.0\.1\:/0\.0\.0\.0\:/g' /go/dotproxy/config.example.yaml
 
 FROM antilax3/alpine
+
+RUN \
+echo "**** install runtime packages ****" && \
+apk add --no-cache \
+    libcap
 
 # copy executable and config
 COPY --from=builder /go/dotproxy/bin/dotproxy-linux-amd64 /app/dotproxy
@@ -30,5 +35,5 @@ WORKDIR /app
 COPY root/ /
 
 # ports and volumes
-EXPOSE 7012 7012/udp
+EXPOSE 53 53/udp
 VOLUME /config

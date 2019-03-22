@@ -9,16 +9,16 @@
 ```
 docker create --name=dotproxy \
 -v <path to config>:/config \
--p 7012:7012 \
--p 7012:7012/udp \
+-p 53:53 \
+-p 53:53/udp \
 antilax3/dotproxy
 ```
 ## Parameters
 The parameters are split into two halves, separated by a colon, the left hand side representing the host and the right the container side. For example with a volume -v external:internal - what this shows is the volume mapping from internal to external of the container. So -v /mnt/app/config:/config would map /config from inside the container to be accessible from /mnt/app/config on the host's filesystem.
 
 - `-v /config` - local path for dotproxy config file
-- `-p 7012` - TCP port for dotproxy
-- `-p 7012/udp` - UDP port for dotproxy
+- `-p 53` - TCP port for dotproxy
+- `-p 53/udp` - UDP port for dotproxy
 - `-e LOG_LEVEL` - for setting log verbosity level, eg debug
 - `-e PUID` - for UserID, see below for explanation
 - `-e PGID` - for GroupID, see below for explanation
@@ -35,7 +35,7 @@ In this instance `PUID=1001` and `PGID=1001`. To find yours use `id user` as bel
     
 ## Volumes
 
-The container uses a single volume mounted at '/config'. This volume stores the configuration file 'config.yaml'.
+The container uses a single volume mounted at `/config`. This volume stores the configuration file `config.yaml`.
 
     config
     |-- config.yaml
@@ -80,4 +80,5 @@ When there exists more than one upstream DNS server in configuration, the `upstr
 |`Failover`|Prioritize a single primary server and failover to secondary server(s) only when the primary fails. Ideal if one server should serve all traffic, but there is a need for fault tolerance.|
 
 ## Version
+- **22/03/19:** Update ports to reflect example config and allow dotproxy to bind ports <1024 as non-root users
 - **17/03/19:** Initial Release
