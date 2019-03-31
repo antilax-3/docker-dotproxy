@@ -1,5 +1,7 @@
 FROM golang:alpine AS builder
 
+ENV CGO_ENABLED=0
+
 RUN \
  echo "**** install build dependencies ****" && \
  apk update && apk add --no-cache git make && \
