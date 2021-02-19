@@ -80,5 +80,6 @@ When there exists more than one upstream DNS server in configuration, the `upstr
 |`Failover`|Prioritize a single primary server and failover to secondary server(s) only when the primary fails. Ideal if one server should serve all traffic, but there is a need for fault tolerance.|
 
 ## Version
+- **19/02/21:** Pin Go version to 1.15 to prevent go.mod compilation issues
 - **22/03/19:** Update ports to reflect example config and allow dotproxy to bind ports <1024 as non-root users
 - **17/03/19:** Initial Release
