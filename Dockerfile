@@ -1,16 +1,15 @@
-FROM golang:1.15.7-alpine AS builder
+FROM golang:1.19-alpine AS builder
 
 ENV CGO_ENABLED=0
 
 RUN \
  echo "**** install build dependencies ****" && \
- apk update && apk add --no-cache git make && \
- go get -u -v golang.org/x/lint/golint golang.org/x/tools/cmd/stringer
+ apk update && apk add --no-cache git make
 
 RUN \
  echo "**** build go application ****" && \
  git clone https://github.com/LINKIWI/dotproxy.git && \
- cd dotproxy && make && sed -i 's/127\.0\.0\.1\:/0\.0\.0\.0\:/g' /go/dotproxy/config.example.yaml
+ cd dotproxy && go mod tidy && go get golang.org/x/tools/cmd/stringer && make && sed -i 's/127\.0\.0\.1\:/0\.0\.0\.0\:/g' /go/dotproxy/config.example.yaml
 
 FROM antilax3/alpine
 
